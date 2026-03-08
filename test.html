@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --zju-blue: #003e8c;   
+            --slide-bg: #ebf4fa; /* 成员页背景色 */
+            --highlight: #d32f2f;
+            --viewer-bg: #525659; /* PDF查看器背景 */
+            --white: #ffffff;
+        }
+        
+        body { 
+            margin: 0; padding: 0; 
+            background: var(--viewer-bg); 
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .ppt-page {
+            width: 960px;
+            height: 540px;
+            margin: 25px 0;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* --- 第一页：封面页 (使用上传的背景图) --- */
+        .cover-page {
+            background: url('封面样式.png') no-repeat center center;
+            background-size: cover;
+            color: #1a1a1a; 
+        }
+        
+        .cover-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .cover-title {
+            font-size: 52px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            margin-bottom: 25px;
+            color: #2c2f3b;
+            text-shadow: none;
+        }
+        
+        .cover-subtitle {
+            font-size: 24px;
+            color: #4a4d59;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            letter-spacing: 2px;
+            margin-bottom: 110px;
+            transform: translateX(120px); 
+        }
+
+        .cover-footer {
+            position: absolute;
+            bottom: 65px;
+            width: 100%;
+        }
+        
+        .inst-zh { font-size: 24px; font-weight: 500; margin-bottom: 6px; }
+        .inst-en { font-size: 14px; color: rgba(0,0,0,0.6); text-transform: uppercase; margin-bottom: 18px; }
+        .cover-date { font-size: 16px; font-weight: bold; opacity: 0.9; }
+
+        /* --- 成员介绍页样式 --- */
+        .intro-page {
+            background: var(--slide-bg);
+            color: #333;
+        }
+
+        /* 统一 Logo 栏 */
+        .header {
+            position: relative;
+            width: 100%;
+            height: 80px; 
+            background: transparent;
+            z-index: 10;
+        }
+        
+        .logo-zju { 
+            position: absolute; 
+            top: 0;   
+            left: 0;  
+            height: 60px; 
+            display: block;
+        }
+        
+        .logo-omai { 
+            position: absolute; 
+            top: 10px; 
+            right: 30px; 
+            height: 60px; 
+            display: block;
+        }
+
+        .intro-content {
+            flex: 1;
+            display: flex;
+            padding: 20px 45px 30px 45px;
+        }
+
+        .sidebar {
+            width: 250px;
+            border-right: 2px solid rgba(0, 62, 140, 0.1);
+            padding-right: 20px;
+            margin-top: 10px;
+        }
+        
+        .name { font-size: 32px; font-weight: bold; color: var(--zju-blue); margin-bottom: 5px; }
+        .edu-info { font-size: 14px; line-height: 1.6; }
+        .tag-box { margin-top: 15px; }
+        .tag { background: var(--zju-blue); color: white; padding: 3px 10px; border-radius: 15px; font-size: 11px; display: inline-block; margin-bottom: 5px; }
+
+        .main-panel { flex: 1; padding-left: 35px; margin-top: 10px; }
+        .section-header { font-size: 18px; font-weight: bold; color: var(--zju-blue); border-left: 4px solid var(--zju-blue); padding-left: 10px; margin: 15px 0 12px 0; }
+        
+        .card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .card { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .card-title { font-weight: bold; font-size: 14px; color: #000; margin-bottom: 4px; }
+        .card-desc { font-size: 12px; color: #555; line-height: 1.4; }
+        .metric { color: var(--highlight); font-weight: bold; }
+
+        .pub-list { font-size: 13px; list-style: none; padding: 0; margin: 0; }
+        .pub-list li { margin-bottom: 7px; padding-left: 15px; position: relative; }
+        .pub-list li::before { content: "•"; color: var(--zju-blue); position: absolute; left: 0; font-weight: bold; }
+        .pub-tag { color: var(--highlight); font-weight: bold; margin-right: 5px; }
+
+        .page-footer { position: absolute; bottom: 15px; right: 30px; font-size: 11px; color: #888; }
+    </style>
+</head>
+<body>
+
+    <div class="ppt-page cover-page">
+        <div class="header">
+            <img src="zju.png" class="logo-zju" alt="ZJU Logo">
+            <img src="omai.png" class="logo-omai" alt="OMAI Logo">
+        </div>
+        <div class="cover-content">
+            <div class="cover-title">服务监管组科研概况</div>
+            <div class="cover-subtitle">——团队成员与核心研究方向</div>
+            
+            <div class="cover-footer">
+                <div class="inst-zh">浙江大学 OM 人工智能研究中心</div>
+                <div class="inst-en">OM Artificial Intelligence Research Center, Zhejiang University</div>
+                <div class="cover-date">2026年3月</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ppt-page intro-page">
+        <div class="header">
+            <img src="zju.png" class="logo-zju">
+            <img src="omai.png" class="logo-omai">
+        </div>
+        <div class="intro-content">
+            <div class="sidebar">
+                <div class="name">张孜纶</div>
+                <div class="edu-info">
+                    <b>浙江大学 · 计算机博士</b><br>
+                    导师：尹建伟/赵天成<br>
+                    <div class="tag-box">
+                        <span class="tag">遥感大模型 (RS-VLM)</span><br>
+                        <span class="tag">超高分辨率解译</span><br>
+                        <span class="tag">多模态大模型</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-panel">
+                <div class="section-header">核心科研贡献</div>
+                <div class="card-row">
+                    <div class="card">
+                        <div class="card-title">RS5M & GeoRSCLIP</div>
+                        <div class="card-desc">构建首个大规模遥感视觉语言数据集，单篇引用量近 <span class="metric">300</span> 次。</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">ImageRAG 框架</div>
+                        <div class="card-desc">针对超高分辨率遥感的 RAG 解译框架，发表于 <b>IEEE GRSM</b> <span class="metric">(IF: 16.4)</span>。</div>
+                    </div>
+                </div>
+                <div class="section-header">代表性学术成果</div>
+                <ul class="pub-list">
+                    <li><span class="pub-tag">IEEE GRSM</span> ImageRAG: 超高分辨率遥感分析框架</li>
+                    <li><span class="pub-tag">ISPRS</span> Geo-R1: 小样本遥感推理模型</li>
+                    <li><span class="pub-tag">IEEE TGRS</span> RS5M & GeoRSCLIP 基座模型</li>
+                    <li><span class="pub-tag">ICASSP'26</span> DetailCLIP / TGSFT</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page-footer">Page 1</div>
+    </div>
+
+    <div class="ppt-page intro-page">
+        <div class="header">
+            <img src="zju.png" class="logo-zju">
+            <img src="omai.png" class="logo-omai">
+        </div>
+        <div class="intro-content">
+            <div class="sidebar">
+                <div class="name">沈昊展</div>
+                <div class="edu-info">
+                    <b>浙江大学 · 人工智能博士</b><br>
+                    导师: 赵天成<br>
+                    <div class="tag-box">
+                        <span class="tag">视觉定位（Visual Grounding）</span><br>
+                        <span class="tag">视觉逻辑推理</span><br>
+                        <span class="tag">强化学习 (RL)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-panel">
+                <div class="section-header">核心科研贡献</div>
+                <div class="card-row">
+                    <div class="card">
+                        <div class="card-title">VLM-R1 开源框架</div>
+                        <div class="card-desc">首个稳定可推广的 R1 风格多模态模型开源框架，受到广泛关注。</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">ZoomEye (EMNLP Oral)</div>
+                        <div class="card-desc">类人缩放能力的树搜索图像探索，显著提升细粒度视觉推理精度。</div>
+                    </div>
+                </div>
+                <div class="section-header">代表性学术成果</div>
+                <ul class="pub-list">
+                    <li><span class="pub-tag">EMNLP'25</span> ZoomEye: 树搜索视觉推理 (Oral)</li>
+                    <li><span class="pub-tag">AAAI'24</span> GroundVLP: 零样本视觉定住</li>
+                    <li><span class="pub-tag">ACL'25</span> Orchestration Engine (Demo)</li>
+                    <li><span class="pub-tag">arXiv</span> VLM-R1: Stable R1-style Large VLM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page-footer">Page 2</div>
+    </div>
+
+    <div class="ppt-page intro-page">
+        <div class="header">
+            <img src="zju.png" class="logo-zju">
+            <img src="omai.png" class="logo-omai">
+        </div>
+        <div class="intro-content">
+            <div class="sidebar">
+                <div class="name">赵康嘉</div>
+                <div class="edu-info">
+                    <b>浙江大学 · 计算机博士</b><br>
+                    导师：赵天成/智晨<br>
+                    <div class="tag-box">
+                        <span class="tag">GUI缺陷检测</span><br>
+                        <span class="tag">Agentic RL</span><br>
+                        <span class="tag">多模态视觉推理</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-panel">
+                <div class="section-header">核心科研贡献</div>
+                <div class="card-row">
+                    <div class="card">
+                        <div class="card-title">MLLM 评测 Benchmark</div>
+                        <div class="card-desc">构建针对序列视觉输入推理与预测的评测基准，填补视频理解能力评测空白。</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">GTArena：自动化 GUI 测试评测</div>
+                        <div class="card-desc">提出自动化 GUI 测试评测环境 GTArena，全面评估多模态大模型缺陷检测能力。</div>
+                    </div>
+                </div>
+                <div class="section-header">代表性学术成果</div>
+                <ul class="pub-list">
+                    <li><span class="pub-tag">arXiv</span> Benchmarking Sequential Visual Input Reasoning and Prediction</li>
+                    <li><span class="pub-tag">arXiv</span> GUI Testing Arena：多模态大模型GUI缺陷检测能力评估框架</li>
+                    <li><span class="pub-tag">arXiv</span> VLM-R1: Stable R1-style Large VLM</li>
+                    <li><span class="pub-tag">IJCAI'25</span> HORAE: 跨领域自动化服务监管建模语言</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page-footer">Page 3</div>
+    </div>
+
+    <div class="ppt-page intro-page">
+        <div class="header">
+            <img src="zju.png" class="logo-zju">
+            <img src="omai.png" class="logo-omai">
+        </div>
+        <div class="intro-content">
+            <div class="sidebar">
+                <div class="name">孙雨涛</div>
+                <div class="edu-info">
+                    <b>浙江大学 · 计算机博士</b><br>
+                    导师：赵天成/陈明帅<br>
+                    <div class="tag-box">
+                        <span class="tag">大语言模型推理</span><br>
+                        <span class="tag">合成数据</span><br>
+                        <span class="tag">模型微调与抗遗忘</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-panel">
+                <div class="section-header">核心科研贡献</div>
+                <div class="card-row">
+                    <div class="card">
+                        <div class="card-title">大语言模型推理自提升</div>
+                        <div class="card-desc">提出 CRESCENT 框架，实现无需任何外部监督信号的 LLM 自主改进，有效提升数学推理能力。</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">服务监管与抗遗忘机制</div>
+                        <div class="card-desc">构建跨领域智能监管语言 HORAE；提出 SA-SFT 自我对话微调方法，全面缓解灾难性遗忘。</div>
+                    </div>
+                </div>
+                <div class="section-header">代表性学术成果</div>
+                <ul class="pub-list">
+                    <li><span class="pub-tag">IJCAI'25</span> HORAE: 跨领域自动化服务监管建模语言</li>
+                    <li><span class="pub-tag">ACL'25</span> CRESCENT: 语言模型推理能力自提升框架</li>
+                    <li><span class="pub-tag">ICWS'24</span> 服务监管短文版本 (<span class="metric">Best Oral</span>)</li>
+                    <li><span class="pub-tag">Open Source</span> 核心参与开发 VLM-R1 (5.5k Stars) 与 OmAgent 等前沿项目</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page-footer">Page 4</div>
+    </div>
+
+    <div class="ppt-page intro-page">
+        <div class="header">
+            <img src="zju.png" class="logo-zju">
+            <img src="omai.png" class="logo-omai">
+        </div>
+        <div class="intro-content">
+            <div class="sidebar">
+                <div class="name">夏宇豪</div>
+                <div class="edu-info">
+                    <b>浙江大学 · 人工智能硕士</b><br>
+                    导师：赵天成<br>
+                    <div class="tag-box">
+                        <span class="tag">智能体驱动 (Agents)</span><br>
+                        <span class="tag">多模态 RAG</span><br>
+                        <span class="tag">上下文工程</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-panel">
+                <div class="section-header">核心科研贡献</div>
+                <div class="card-row">
+                    <div class="card">
+                        <div class="card-title">ACE-MRAG 智能体框架</div>
+                        <div class="card-desc">构建包含“生成-评判-反思-管理”的四大智能体闭环，实现多模态模型上下文策略的自主进化。</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">动态策略库 (Playbook)</div>
+                        <div class="card-desc">设计结构化经验法则配置，指导大模型更精准地理解视觉信息，显著缓解视觉幻觉与推理错误。</div>
+                    </div>
+                </div>
+                <div class="section-header">代表性学术成果</div>
+                <ul class="pub-list">
+                    <li><span class="pub-tag">Open Source</span> 核心参与开发 OmAgent 等开源项目</li>
+                    <li><span class="pub-tag">系统实现</span> 开发端到端 ACE-MRAG 系统，在复杂多图视觉问答 (如 SlideVQA) 中大幅提升准确性。</li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="page-footer">Page 5</div>
+    </div>
+
+</body>
+</html>
